@@ -6,7 +6,7 @@ LDFLAGS = -lX11
 
 TARGET = build/ex
 
-SOURCES = src/main.cpp src/resize_nearest_neighbour.cpp src/resize_bilinear.cpp
+SOURCES = src/main.cpp src/resize_nearest_neighbour.cpp src/resize_bilinear.cpp src/resize_cubic.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
 OBJECTS := $(patsubst src/%,build/%,$(OBJECTS))

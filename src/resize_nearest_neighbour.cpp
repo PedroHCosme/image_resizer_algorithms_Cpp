@@ -26,8 +26,7 @@ cimg_library::CImg<unsigned char> resize_nearest_neighbour::resize(const cimg_li
 unsigned char resize_nearest_neighbour::estimate_color(const cimg_library::CImg<unsigned char>& source, float x, float y, int channel) const {
     int nearest_x = static_cast<int>(round(x));
     int nearest_y = static_cast<int>(round(y));
-    nearest_x = std::max(0, std::min(nearest_x, source.width() - 1));
-    nearest_y = std::max(0, std::min(nearest_y, source.height() - 1));
-    std::cout << "Nearest neighbour estimate color at (" << nearest_x << ", " << nearest_y << ") in channel " << channel << std::endl;
+    nearest_x = clamp(nearest_x, 0, source.width() - 1);
+    nearest_y = clamp(nearest_y, 0, source.height() - 1);
     return source(nearest_x, nearest_y, 0, channel);
 }
