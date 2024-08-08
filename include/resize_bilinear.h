@@ -4,6 +4,7 @@
 #include "resize_image_base.h"
 
 /**
+ * @class resize_bilinear
  * @brief Class for resizing images using bilinear interpolation.
  * 
  * This class inherits from the resize_image_base and implements the resize method
@@ -35,6 +36,14 @@ protected:
     unsigned char estimate_color(const cimg_library::CImg<unsigned char>& source, float x, float y, int channel) const override;
 
 private:
+    /**
+     * @brief Interpolates between two values.
+     * 
+     * @param start The starting value.
+     * @param end The ending value.
+     * @param factor The interpolation factor (0.0 to 1.0).
+     * @return float The interpolated value.
+     */
     float interpolate(float start, float end, float factor) const;
 };
 

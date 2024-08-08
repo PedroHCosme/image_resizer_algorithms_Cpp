@@ -4,6 +4,7 @@
 #include "resize_image_base.h"
 
 /**
+ * @class resize_nearest_neighbour
  * @brief Class for resizing images using nearest neighbour interpolation.
  * 
  * This class inherits from the resize_image_base and implements the resize method

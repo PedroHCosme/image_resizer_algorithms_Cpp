@@ -5,6 +5,14 @@
 
 using namespace cimg_library;
 
+/**
+ * @brief Resizes the given source image to the specified new dimensions using cubic interpolation.
+ * 
+ * @param source The original image to be resized.
+ * @param new_width The desired width of the resized image.
+ * @param new_height The desired height of the resized image.
+ * @return cimg_library::CImg<unsigned char> The resized image.
+ */
 cimg_library::CImg<unsigned char> resize_cubic::resize(const cimg_library::CImg<unsigned char>& source, int new_width, int new_height) const {
     cimg_library::CImg<unsigned char> result(new_width, new_height, 1, source.spectrum(), 0);
     float x_ratio = static_cast<float>(source.width()) / new_width;
@@ -23,6 +31,15 @@ cimg_library::CImg<unsigned char> resize_cubic::resize(const cimg_library::CImg<
     return result;
 }
 
+/**
+ * @brief Estimates the color value at a specific position in the source image using cubic interpolation.
+ * 
+ * @param source The original image.
+ * @param x The x-coordinate of the position.
+ * @param y The y-coordinate of the position.
+ * @param channel The color channel to estimate.
+ * @return unsigned char The estimated color value.
+ */
 unsigned char resize_cubic::estimate_color(const cimg_library::CImg<unsigned char>& source, float x, float y, int channel) const {
     int x1 = static_cast<int>(x);
     int y1 = static_cast<int>(y);
@@ -49,10 +66,25 @@ unsigned char resize_cubic::estimate_color(const cimg_library::CImg<unsigned cha
     return std::clamp(result, 0.0f, 255.0f);
 }
 
+/**
+ * @brief Performs cubic interpolation on a set of four points.
+ * 
+ * @param p Array of four points.
+ * @param x The interpolation factor (0.0 to 1.0).
+ * @return float The interpolated value.
+ */
 float resize_cubic::cubic_interpolate(float p[4], float x) const {
-    return p[1] + 0.5 * x*(p[2] - p[0] + x*(2.0*p[0] - 5.0*p[1] + 4.0*p[2] - p[3] + x*(3.0*(p[1] - p[2]) + p[3] - p[0])));
+    return p[1] + 0.5 * x * (p[2] - p[0] + x * (2.0 * p[0] - 5.0 * p[1] + 4.0 * p[2] - p[3] + x * (3.0 * (p[1] - p[2]) + p[3] - p[0])));
 }
 
+/**
+ * @brief Interpolates between two values.
+ * 
+ * @param start The starting value.
+ * @param end The ending value.
+ * @param factor The interpolation factor (0.0 to 1.0).
+ * @return float The interpolated value.
+ */
 float resize_cubic::interpolate(float start, float end, float factor) const {
     return start + factor * (end - start);
 }
