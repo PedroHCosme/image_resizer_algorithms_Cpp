@@ -28,6 +28,20 @@ public:
      * @return cimg_library::CImg<unsigned char> The resized image.
      */
     virtual cimg_library::CImg<unsigned char> resize(const cimg_library::CImg<unsigned char>& source, int new_width, int new_height) const = 0;
+
+protected:
+    /**
+     * @brief Pure virtual method to estimate the color value at a specific position in the source image.
+     * 
+     * Derived classes must implement this method to provide specific color estimation techniques.
+     * 
+     * @param source The original image.
+     * @param x The x-coordinate of the position.
+     * @param y The y-coordinate of the position.
+     * @param channel The color channel to estimate.
+     * @return unsigned char The estimated color value.
+     */
+    virtual unsigned char estimate_color(const cimg_library::CImg<unsigned char>& source, float x, float y, int channel) const = 0;
 };
 
 #endif // RESIZE_IMAGE_BASE_H

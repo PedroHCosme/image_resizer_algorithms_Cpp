@@ -20,6 +20,18 @@ public:
      * @return cimg_library::CImg<unsigned char> The resized image.
      */
     cimg_library::CImg<unsigned char> resize(const cimg_library::CImg<unsigned char>& source, int new_width, int new_height) const override;
+
+protected:
+    /**
+     * @brief Estimates the color value at a specific position in the source image using nearest neighbour interpolation.
+     * 
+     * @param source The original image.
+     * @param x The x-coordinate of the position.
+     * @param y The y-coordinate of the position.
+     * @param channel The color channel to estimate.
+     * @return unsigned char The estimated color value.
+     */
+    unsigned char estimate_color(const cimg_library::CImg<unsigned char>& source, float x, float y, int channel) const override;
 };
 
 #endif // RESIZE_NEAREST_NEIGHBOUR_H

@@ -22,33 +22,20 @@ public:
      */
     cimg_library::CImg<unsigned char> resize(const cimg_library::CImg<unsigned char>& source, int new_width, int new_height) const override;
 
-private:
+protected:
     /**
-     * @brief Interpolates between two float values.
-     * 
-     * This method is used to calculate intermediate values between two points
-     * for smooth transitions.
-     * 
-     * @param start The starting value.
-     * @param end The ending value.
-     * @param factor The interpolation factor (0.0 to 1.0).
-     * @return float The interpolated value.
-     */
-    float interpolate(float start, float end, float factor) const;
-
-    /**
-     * @brief Interpolates the color value at a specific position in the source image.
-     * 
-     * This method uses bilinear interpolation to estimate the color value at a
-     * non-integer position (x, y) in the source image for a specific color channel.
+     * @brief Estimates the color value at a specific position in the source image using bilinear interpolation.
      * 
      * @param source The original image.
      * @param x The x-coordinate of the position.
      * @param y The y-coordinate of the position.
-     * @param channel The color channel to interpolate.
-     * @return unsigned char The interpolated color value.
+     * @param channel The color channel to estimate.
+     * @return unsigned char The estimated color value.
      */
-    unsigned char interpolate_color(const cimg_library::CImg<unsigned char>& source, float x, float y, int channel) const;
+    unsigned char estimate_color(const cimg_library::CImg<unsigned char>& source, float x, float y, int channel) const override;
+
+private:
+    float interpolate(float start, float end, float factor) const;
 };
 
 #endif // RESIZE_BILINEAR_H
