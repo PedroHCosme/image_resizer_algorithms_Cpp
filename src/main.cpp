@@ -9,8 +9,11 @@ int main() {
     // Load the input image
     CImg<unsigned char> image("lenna.png");
 
-    // Predefined scale factors from 1.5 to 5 in steps of 0.75
-    float scale_factors[] = {1.5, 2.25, 3.0, 3.75, 4.5};
+    // Create an instance of the nearest neighbor resizer
+    resize_nearest_neighbour resizer;
+
+    // Predefined scale factors
+    float scale_factors[] = {0.5, 0.75, 1.5, 2.0};
 
     // Loop over each scale factor and resize the image
     for (float scale_factor : scale_factors) {
@@ -19,7 +22,7 @@ int main() {
         int new_height = static_cast<int>(image.height() * scale_factor);
 
         // Resize the image using nearest neighbor interpolation
-        CImg<unsigned char> resized_image = resize_nearest_neighbour::resize(image, new_width, new_height);
+        CImg<unsigned char> resized_image = resizer.resize(image, new_width, new_height);
 
         // Construct output filename based on scale factor
         std::ostringstream output_filename;
