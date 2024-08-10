@@ -13,7 +13,7 @@ using namespace cimg_library;
  * @param new_height The desired height of the resized image.
  * @return cimg_library::CImg<unsigned char> The resized image.
  */
-cimg_library::CImg<unsigned char> resize_bilinear::resize(const cimg_library::CImg<unsigned char>& source, int new_width, int new_height) const {
+cimg_library::CImg<unsigned char> resize_bilinear::resize(const cimg_library::CImg<unsigned char>& source, int new_width, int new_height, int matrix_size) const {
     cimg_library::CImg<unsigned char> result(new_width, new_height, 1, source.spectrum(), 0);
     float x_ratio = static_cast<float>(source.width()) / new_width;
     float y_ratio = static_cast<float>(source.height()) / new_height;
@@ -23,14 +23,13 @@ cimg_library::CImg<unsigned char> resize_bilinear::resize(const cimg_library::CI
             for (int c = 0; c < source.spectrum(); ++c) {
                 float src_x = x * x_ratio;
                 float src_y = y * y_ratio;
-                result(x, y, 0, c) = estimate_color(source, src_x, src_y, c);
+                result(x, y, 0, c) = estimate_color(source, src_x, src_y, c, matrix_size);
             }
         }
     }
 
     return result;
 }
-
 /**
  * @brief Estimates the color value at a specific position in the source image using bilinear interpolation.
  * 
@@ -40,7 +39,7 @@ cimg_library::CImg<unsigned char> resize_bilinear::resize(const cimg_library::CI
  * @param channel The color channel to estimate.
  * @return unsigned char The estimated color value.
  */
-unsigned char resize_bilinear::estimate_color(const cimg_library::CImg<unsigned char>& source, float x, float y, int channel) const {
+unsigned char resize_bilinear::estimate_color(const cimg_library::CImg<unsigned char>& source, float x, float y, int channel, int matrix_size) const {
     int x1 = static_cast<int>(x);
     int y1 = static_cast<int>(y);
     int x2 = std::min(x1 + 1, source.width() - 1);
@@ -54,7 +53,6 @@ unsigned char resize_bilinear::estimate_color(const cimg_library::CImg<unsigned 
 
     return static_cast<unsigned char>(interpolate(top, bottom, y_frac));
 }
-
 /**
  * @brief Interpolates between two values.
  * 
