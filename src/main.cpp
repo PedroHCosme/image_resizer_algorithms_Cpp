@@ -8,6 +8,16 @@
 
 using namespace cimg_library;
 
+/**
+ * @brief Resizes the given image using the specified resizer and saves the result.
+ * 
+ * @param resizer The resizer object to use for resizing.
+ * @param image The original image to be resized.
+ * @param scale_factor The factor by which to scale the image.
+ * @param method The name of the resizing method (e.g., "nearest", "bilinear").
+ * @param extension The file extension for the output image.
+ * @param matrix_size The size of the matrix used for interpolation.
+ */
 void resize_and_save(const resize_image_base& resizer, const CImg<unsigned char>& image, float scale_factor, const std::string& method, const std::string& extension, int matrix_size) {
     int new_width = static_cast<int>(image.width() * scale_factor);
     int new_height = static_cast<int>(image.height() * scale_factor);
@@ -23,6 +33,11 @@ void resize_and_save(const resize_image_base& resizer, const CImg<unsigned char>
     std::cout << "New dimensions: " << resized_image.width() << "x" << resized_image.height() << std::endl;
 }
 
+/**
+ * @brief Main function to resize images using different methods and save the results.
+ * 
+ * @return int Exit status.
+ */
 int main() {
     const std::vector<std::string> image_paths = {
         "src/lenna.png",
