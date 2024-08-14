@@ -4,7 +4,7 @@ CXXFLAGS = -Iinclude -O2
 
 LDFLAGS = -lX11
 
-TARGET = build/ex
+TARGET = build/resize_image
 
 SOURCES = src/main.cpp src/resize_nearest_neighbour.cpp src/resize_bilinear.cpp
 
